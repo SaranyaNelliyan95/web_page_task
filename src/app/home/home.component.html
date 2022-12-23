@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h3>Welcome {{name}}!</h3>
+    </div>
+    <mat-card>
+        <mat-card-header>
+            <div class="d-block justify-conten between text-success" *ngIf="contact">
+                <h5>Contact Number:&nbsp; {{contact}}</h5>
+            <h5>Email: &nbsp;{{email}}</h5>
+            </div>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="mt-4">
+              <em>  Hi!, U can access home and users page without login , U can access blog by giving Username "New User" and password "123456".</em>
+            </div>
+            <div class="d-flex justify-content-around mt-5"><button class="btn btn-warning" routerLink="/employee">Task 2</button></div>
+        </mat-card-content>
+    </mat-card>
+</div>

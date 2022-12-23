@@ -1,0 +1,31 @@
+<div class="container centered">
+    <form [formGroup]="usersForm" (submit)="onSubmit()">
+        <div class="row pb-3">
+            <label for="name" class="form-label text-secondary">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name">
+            <div class="pt-2 pb-3 text-danger" *ngIf="usersForm.controls['name'].invalid && (usersForm.controls['name'].dirty || usersForm.controls['name'].touched)">
+                <em>Please enter name</em>
+            </div>
+        </div>  
+        <div class="row">
+            <label for="contact" class="form-label text-secondary">Contact</label>
+            <input type="text" class="form-control" id="contact" formControlName="contact" (keyup)="trackContact()">
+            <div class="pt-2 pb-3 text-danger" *ngIf="usersForm.controls['contact'].invalid">
+                <div *ngIf="contactLengthError"><em>{{contactLengthErrorText}}</em></div>
+                <div *ngIf="contactPatternError"><em>{{contactPatternErrorText}}</em></div>
+                <div *ngIf="usersForm.controls['contact'].touched && usersForm.controls['contact'].errors.required"><em>Please enter Contact Number</em></div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <label for="email" class="form-label text-secondary">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email">
+            <div class="pt-2 pb-3 text-danger" *ngIf="usersForm.get('email').invalid && usersForm.get('email').touched"><em>Please enter email</em></div>
+        </div>
+        <div class="pt-3">
+            <button class="btn btn-primary" type="submit" [disabled]="usersForm.invalid">Submit</button>
+            &nbsp;
+            <button class="btn btn-warning" mat-dialog-close [ngStyle]="{'margin-right':'4px'}" (click)="back()">close</button>
+        </div>
+    </form>
+</div>

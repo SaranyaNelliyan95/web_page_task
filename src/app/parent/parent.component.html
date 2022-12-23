@@ -1,0 +1,11 @@
+<div>   
+    <app-child [parentData]="message" (eventEmitter)="AddItem($event)">(This is from child component)</app-child>
+    <h5>
+      <div class="ms-5 mt-4">
+        <span>Employee List: </span>
+        <ul *ngFor="let i of Items" class="mt-2 ms-4">
+          <li>{{i | uppercase }}</li>
+        </ul>
+      </div>
+    </h5>
+</div>
