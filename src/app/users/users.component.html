@@ -2,24 +2,27 @@
     <form [formGroup]="usersForm" (submit)="onSubmit()">
         <div class="row pb-3">
             <label for="name" class="form-label text-secondary">Name</label>
-            <input type="text" class="form-control" id="name" formControlName="name">
+            <input type="text" [class.is-invalid]="usersForm.get('name').invalid && usersForm.get('name').touched"
+            class="form-control" id="name" formControlName="name">
             <div class="pt-2 pb-3 text-danger" *ngIf="usersForm.controls['name'].invalid && (usersForm.controls['name'].dirty || usersForm.controls['name'].touched)">
                 <em>Please enter name</em>
             </div>
         </div>  
         <div class="row">
             <label for="contact" class="form-label text-secondary">Contact</label>
-            <input type="text" class="form-control" id="contact" formControlName="contact" (keyup)="trackContact()">
-            <div class="pt-2 pb-3 text-danger" *ngIf="usersForm.controls['contact'].invalid">
-                <div *ngIf="contactLengthError"><em>{{contactLengthErrorText}}</em></div>
-                <div *ngIf="contactPatternError"><em>{{contactPatternErrorText}}</em></div>
+            <input type="text" [class.is-invalid]="usersForm.get('contact').invalid && usersForm.get('contact').touched"
+            class="form-control" id="contact" formControlName="contact">
+            <div class="pt-2 pb-3 text-danger d-flex" *ngIf="usersForm.controls['contact'].invalid">
+                <div *ngIf="usersForm.get('contact').errors?.minlength || usersForm.get('contact').errors?.maxlength"><em>Contact should be in 10 digit !</em></div>
+                <div *ngIf="usersForm.get('contact').errors?.pattern"><em>Contact is invalid !</em></div>
                 <div *ngIf="usersForm.controls['contact'].touched && usersForm.controls['contact'].errors.required"><em>Please enter Contact Number</em></div>
                 
             </div>
         </div>
         <div class="row">
             <label for="email" class="form-label text-secondary">Email</label>
-            <input type="email" class="form-control" id="email" formControlName="email">
+            <input type="email" [class.is-invalid]="usersForm.get('email').invalid && usersForm.get('email').touched"  class="form-control" id="email" formControlName="email"
+            [email]="emailValidation">
             <div class="pt-2 pb-3 text-danger" *ngIf="usersForm.get('email').invalid && usersForm.get('email').touched"><em>Please enter email</em></div>
         </div>
         <div class="pt-3">

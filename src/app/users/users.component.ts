@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {getFormValidationErrors} from '../Validators/contactValidator';
@@ -11,9 +11,10 @@ import {getFormValidationErrors} from '../Validators/contactValidator';
 })
 export class UsersComponent implements OnInit {
   usersForm: FormGroup | any;
-  contactLengthError=false;contactPatternError=false;
-  contactLengthErrorText = "Contact should be in 10 digit";contactPatternErrorText ="Contact is invalid";
-  constructor(private Fb: FormBuilder, private router:Router) { }
+  emailValidation: boolean = true;
+  editField: any;
+  constructor(private Fb: FormBuilder, private router:Router) { 
+  }
 
   ngOnInit(): void {
     this.usersForm = this.Fb.group({
@@ -22,23 +23,6 @@ export class UsersComponent implements OnInit {
       email: ["", Validators.required],
     })
 
-  }
-  trackContact(){
-    this.usersForm.get('contact').valueChanges.subscribe((data:any)=>{
-      let error = getFormValidationErrors(this.usersForm);
-      if(error[0] !== undefined){
-        if(error[0].error == 'minlength' || error[0].error == 'maxlength'){
-          this.contactLengthError = true;
-        }
-        if(error[0].error == 'pattern'){
-          this.contactPatternError = true;
-        }
-      }
-      if(data == ""|| data == undefined){
-        this.contactLengthError = false;
-        this.contactPatternError = false;
-      }
-    })
   }
   back(){
     this.router.navigate(['']);
